@@ -2,18 +2,18 @@ package mypackage;
 
 public class Book {
 
-	private String ISBN;
-	private String Title ;
-	private String Author ;
-	private String Signature ;
-	private boolean Borrowed;
-	
+	private String isbn;
+	private String tiTLE ;
+	private String myAuthor ;
+	private String signature ;
+	private boolean borrowed;
+	private String z ="un defined";
 	public Book () {
 		    
 		this.setisbn("0000000000");
-		this.settitle("un defined");
-		this.setauther("un defined");
-		this.setSignature("un defined");
+		this.settitle(z);
+		this.setauther(z);
+		this.setsignature(z);
 	this. setborrowed(false );
 		
 	}
@@ -22,52 +22,52 @@ public class Book {
 	
 	 
 public void  setisbn(String isbn) {
-	ISBN=isbn;
+	this.isbn=isbn;
 	
 }
 public void  settitle(String title) {
 	
-	Title=title;
+	this.tiTLE=title;
 	
 }
 public void  setauther(String auther) {
-	Author=auther;
+	this.myAuthor=auther;
 	
 }
-public void  setSignature(String signature) {
-	Signature=signature;
+public void  setsignature(String signature) {
+	this.signature=signature;
 	
 }
 public void  setborrowed(boolean brwd) {
-	Borrowed=brwd;
+	this.borrowed=brwd;
 	
 }
 	
 	
 public String getisbn()
 {
-	return ISBN;
+	return isbn;
 	
 }
 public String gettitle()
 {
-	return  Title ;
+	return tiTLE ;
 	
 }
 public String getauther()
 {
-	return Author;
+	return myAuthor;
 	
 }
-public String getSignature()
+public String getsignature()
 {
-	return Signature;
+	return signature;
 	
 }
 
 public String getborrow()
 {
-	if (Borrowed)
+	if (borrowed)
 			
   		return "not Available";
   		else 

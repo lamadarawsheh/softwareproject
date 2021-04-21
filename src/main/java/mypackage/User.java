@@ -4,10 +4,7 @@ public class User {
 private boolean status;
 private String uname;
 private String password;
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
-	}
 	
 	public User() {
 		this.status = false;

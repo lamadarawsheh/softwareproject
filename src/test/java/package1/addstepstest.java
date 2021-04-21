@@ -4,6 +4,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.junit.Assert;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -58,7 +60,8 @@ public void the_admin_want_to_add_a_book() {
 
 @Then("adding book succesfuly")
 public void adding_book_succesfuly() {
-  assertTrue(addstatus==true);
+  
+  Assert.assertEquals(true,addstatus);
 	
 }
 
@@ -67,7 +70,8 @@ public void adding_book_succesfuly() {
 
 @Then("cant add book")
 public void cant_add_book() {
-	assertTrue(addstatus==false);
+	  Assert.assertEquals(false,addstatus);
+
 }
 
 

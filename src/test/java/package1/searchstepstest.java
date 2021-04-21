@@ -2,13 +2,15 @@ package package1;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Assert;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import mypackage.Library;
 
 public class searchstepstest {
-public boolean results;
+    public boolean results;
 	public String subtitle1;
 	public String title1;
 	
@@ -44,8 +46,9 @@ public Library L1;
 
 
 	@Then("show information of the book")
-	public void show_information_of_the_book() {
-	    assertTrue(results==true);
+	public void show_information_of_the_book()
+	{   Assert.assertEquals(true,results);
+	
 	}
 
 
@@ -103,7 +106,8 @@ public void there_is_no_book_has_as_substring(String string) {
 
 @Then("no corrosponding book")
 public void no_corrosponding_book() {
-	assertTrue(results==false);
+	 Assert.assertEquals(false,results);
+	
 }
 
 @Given("search for a books through  {string} and wrong substring {string}")
@@ -119,7 +123,8 @@ public void there_is_more_than_one_book_has_as_substring(String string) {
 
 @Then("show books information")
 public void show_books_information() {
-	assertTrue(results==true);
+	 Assert.assertEquals(true,results);
+	
 }
 @Given("search for a books through  {string} and wrong substring {string} and admin or user is logged in")
 public void search_for_a_books_through_and_wrong_substring_and_admin_or_user_is_logged_in(String string, String string2) {

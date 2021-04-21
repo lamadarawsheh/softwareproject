@@ -1,80 +1,25 @@
 package mypackage;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 
 public class Library {
 
 	private boolean status;
-		
-	public static ArrayList<Book>book=new ArrayList<Book>();
-	public static String[]tokens;
-	public static ArrayList<User>user=new ArrayList<User>();
+	
+	private static final Logger LOGGER = Logger.getLogger(Library.class.getName());
+	 protected static final List<Book>book=new ArrayList<>() ;
+	 private static  String[] tokens;
+	 protected static final List<User>user=new ArrayList<>() ;
 	
 	
 	
-	public void main (String [] s)
-	{
-/*
-		while(true) {
-			System.out.println( "Enter your command please ....🙂" );
-			System.out.printf(">");
-			System.out.printf(" ");
-			Scanner scanner = new Scanner(System.in);
-		String command =scanner.nextLine();
-		tokens =command.split(" ");
-		/*	System.out.println(tokens.length );
-			for (String token:tokens)
-				System.out.println( token );
-			 System.out.println( tokens[0] );
-			
-			// System.out.println(s ); 
-			/*if (tokens.length <2)
-				continue;*/
-		/*
-		String st=tokens[0];
-			 boolean numeric =tokens[1]. matches("\\d+");
-             if (numeric==false)
-             {
-            	 System.out.println( "please inter right isbn " );
-            	 continue;
-             }
-             else {
-			 if (st.equalsIgnoreCase("Add"))
-					{  
-				 if (tokens.length <2)
-						{System.out.println( "not enough arguments " );
-					 continue;
-						}
-				 
-				 else {
-					 
-					 addbook();
-					 
-					 }
-					}
-			 
-			 else if (tokens[0].equalsIgnoreCase("search"))
-         	{	
-             	if (tokens.length ❤)
-				{System.out.println( "not enough arguments " );
-				continue;
-				}
-			 
-             	
- else {
-					 
-					search(tokens[1],tokens[2]);
-					 
-					 }
-             	
-			 }
-             }
-		}
-	*/
-}
 	
-	public void sets(String s,String string, String string2) {
+	public void sets(String string, String string2) {
 		
 		for (User u:user) 
 	       {
@@ -96,87 +41,87 @@ public class Library {
 	
 
 	public boolean logout(boolean status) {
-		if(status ==true)
+		if(status)
 		{
 			this.status=false;
-			System.out.println( "Logout succesfully" );
+			  LOGGER.log(Level.INFO,"Logout succesfully");
+
+			
 		}
 		return this.status;
 		
 	}
 	
 	public boolean login(boolean status) {
-		if(status ==false)
+		if(status)
 		{
 			this.status=true;
-			System.out.println( "Login succesfully" );
+			 LOGGER.log(Level.INFO,"Login succesfully");
+			
 		}
 		return this.status;
 		
 	}
+	
 	public boolean addbook(boolean status2, String title, String auther, String iSBN, String signature) {
+
 		
 		
-		
-		if(status2==true)
+		if(status2)
 		{
 			Book addbook = new Book () ;
-			boolean numeric =iSBN. matches("\\d+");
 			boolean valid=checkingisbn(iSBN);
-        	   if(valid==true)
+        	   if(valid)
         	   {
 			
 	         addbook.setisbn(iSBN);
 	      
 	         addbook.settitle(title);
 	         addbook.setauther(auther);
-	         addbook.setSignature(signature);
-	          if (book.isEmpty())
-	          {
-	        	  book.add( addbook);
-		            
-		           System.out.println( "Book is added" );
-	          }
+	         addbook.setsignature(signature);
 	         
+	        
 	         
-	          else {
-	        	  int flag = 0; 
 	       for (Book item:book) 
 	       {
-	    	   if( addbook.getisbn().equalsIgnoreCase(item.getisbn()))
+	    	   if( checkbook(addbook, item))
 	    	   {
-	    	   System.out.println("Book is already exist ");
-	    	   flag=+1;
+	    		   LOGGER.log(Level.INFO,"Book is already exist");
+	    	   
+	    	 
 	    	   }
-	       }
-	       if (flag==0)
+	       
+	    	   else
 	       { book.add( addbook);
+	       
+	        LOGGER.log(Level.INFO,"Book is added");
 	            
-	           System.out.println( "Book is added" );
+	         
 	      }
 	       }
 		
-	        /*  for (Book item:book) 
-		       {
-		    	   
-		    	   System.out.println(item.getisbn());
-		    	   
-		       }*/
+	   
 			return true;
         	   }
         	   else {
+        		   LOGGER.log(Level.INFO,"please inter right isbn");
        			
-       			System.out.println( "please inter right isbn " );
        			return true;
        		}
         	   }
+		
+		
 		else
 		{
-			System.out.println("you should login first!!");
+			   LOGGER.log(Level.INFO,"you should login first!!");
+			
 			return false;
 		}
 		
 		
+	}
+	private boolean checkbook(Book addbook, Book item) {
+		return addbook.getisbn().equalsIgnoreCase(item.getisbn());
 	}
 
 	private boolean checkingisbn(String iSBN) {
@@ -190,10 +135,8 @@ public class Library {
 			sumation+=((i+1)*num);
 number=number/10;
 		}
-		if(sumation % 11 == 0)
-	         return true;
-		else
-			 return false;
+		 return(sumation % 11 == 0);
+	 
 		
 		
 	}
@@ -210,22 +153,13 @@ number=number/10;
   				              		String title =item.gettitle();
   				              	String auther =item.getauther();
   				              String isbn =item.getisbn();
-  				            String sign =item.getSignature();
-  				              	String TITLE=title.toLowerCase();
-  				               String TOKENS=substring.toLowerCase();
-  				             boolean  flag= TITLE.contains(TOKENS);
+  				            String sign =item.getsignature();
+  				              	String tt=title.toLowerCase();
+  				               String  tok=substring.toLowerCase();
+  				             boolean  flag= tt.contains(tok);
   				            		 
-  				         //   System.out.println(flag);
-  				                  if (flag==true)
-  				                	{ 
-  				                	  System.out.print(++count +".");
-  				                	 System.out.println(title);
-  				                	 System.out.println(auther);
-  				                	 System.out.println(isbn);
-  				                	 System.out.println(sign);
-  				                	 
-  				                	}
-  				                
+  				    
+  				                 return ( extracted(title, auther, isbn, sign, flag));
   				              	}    
 
   				              	if (string.equalsIgnoreCase("isbn"))
@@ -233,21 +167,13 @@ number=number/10;
   				              		String title =item.gettitle();
   				              	String auther =item.getauther();
   				              String isbn =item.getisbn();
-  				            String sign =item.getSignature();
-  				              	String ISBN=isbn.toLowerCase();
-  				               String TOKENS=substring.toLowerCase();
-  				             boolean  flag= ISBN.contains(TOKENS);
+  				            String sign =item.getsignature();
+  				              	String is=isbn.toLowerCase();
+  				               String tok=substring.toLowerCase();
+  				             boolean  flag= is.contains(tok);
   				            		 
-  				           // System.out.println(flag);
-  				                  if (flag==true)
-  				                	{ 
-  				                	  System.out.print(++count +".");
-  				                	 System.out.println(title);
-  				                	 System.out.println(auther);
-  				                	 System.out.println(isbn);
-  				                	 System.out.println(sign);
-  				                	 
-  				                	}
+  				
+  				           return ( extracted(title, auther, isbn, sign, flag));
   				                
   				              	}    
   				              	
@@ -257,21 +183,13 @@ number=number/10;
 				              		String title =item.gettitle();
 				              	String auther =item.getauther();
 				              String isbn =item.getisbn();
-				            String sign =item.getSignature();
+				            String sign =item.getsignature();
 				              	String signature=sign.toLowerCase();
-				               String TOKENS=substring.toLowerCase();
-				             boolean  flag= signature.contains(TOKENS);
+				               String tok=substring.toLowerCase();
+				             boolean  flag= signature.contains(tok);
 				            		 
-				           // System.out.println(flag);
-				                  if (flag==true)
-				                	{ 
-				                	  System.out.print(++count +".");
-				                	 System.out.println(title);
-				                	 System.out.println(auther);
-				                	 System.out.println(isbn);
-				                	 System.out.println(sign);
-				                	 
-				                	}
+				         
+				             return ( extracted(title, auther, isbn, sign, flag));
 				                
 				              	}    
   				              	
@@ -280,21 +198,13 @@ number=number/10;
 				              		String title =item.gettitle();
 				              	String auther =item.getauther();
 				              String isbn =item.getisbn();
-				            String sign =item.getSignature();
-				              	String Auther=auther.toLowerCase();
-				               String TOKENS=substring.toLowerCase();
-				             boolean  flag= Auther.contains(TOKENS);
+				            String sign =item.getsignature();
+				              	String auth=auther.toLowerCase();
+				               String  tok=substring.toLowerCase();
+				             boolean  flag= auth.contains(tok);
 				            		 
-				           // System.out.println(flag);
-				                  if (flag==true)
-				                	{ 
-				                	  System.out.print(++count +".");
-				                	 System.out.println(title);
-				                	 System.out.println(auther);
-				                	 System.out.println(isbn);
-				                	 System.out.println(sign);
-				                	 
-				                	}
+				        
+				             return ( extracted(title, auther, isbn, sign, flag));
 				                
 				              	}    
 		
@@ -308,15 +218,16 @@ number=number/10;
                 		
                 		}
                 	if(count>1)
-                	{System.out.println("there is more than one book that satisfy criteria \r\n");
+                	{
+               	            LOGGER.log(Level.INFO,"there is more than one book that satisfy criteria \r\n"); 
                 		return true;
                 		
                 		}
        
                 	else
                 	{
-                		System.out.println("No books match the criteria\r\n");
-                			
+                		 LOGGER.log(Level.INFO,"No books match the criteria\r\n"); 
+                	
                 		return false;
                 	}
                 	
@@ -324,6 +235,18 @@ number=number/10;
                 	
                 	
                 	}
+	private boolean extracted(String title, String auther, String isbn, String sign, boolean flag) {
+  	  if (flag) {
+    	  LOGGER.info(title);
+    	 LOGGER.info(auther);
+    	 LOGGER.info(isbn);
+    	 LOGGER.info(sign);
+    	 return true;
+  	  }
+  	  else
+  		 return false;
+    	 
+	}
 
 	public void adduser(String status2, String uname, String pword) {
 		User u = new User () ;
@@ -340,12 +263,14 @@ number=number/10;
 	    	   if((u.getUname().equalsIgnoreCase(uname1))&&(u.getPassword().equalsIgnoreCase(pword1)))
 	    	   {
 	    		  u.setStatus("true");
-	    		  System.out.println( "Login succesfully" );
+	    		  LOGGER.log(Level.INFO,"Login succesfully"); 
+	    		
 	    		  return true;
 	    	   }
 	    	   
 	       }
-		  System.out.println( "Check your password" );
+		  LOGGER.log(Level.INFO,"Check your password"); 
+		
 		return false;
 	}
 
@@ -357,7 +282,7 @@ number=number/10;
 	    	   {
 	    		  
 	    		 f=u.getStatus();
-	    		 if(f==true)
+	    		 if(f)
 	    			{
 	    			
 	    				return true;
@@ -380,7 +305,8 @@ number=number/10;
 	    	   {
 	    		  
 	    	u.setStatus("false");
-	    	System.out.println( "Logout succesfully" );
+	    	  LOGGER.log(Level.INFO,"Logout succesfully"); 
+	    	
 	    			return true;
 	    			}
 	    		 
@@ -388,6 +314,9 @@ number=number/10;
 		 return false;
 	    	   
 	       }
+	public static String[] getTokens() {
+		return tokens;
+	}
 		
 	
 	
